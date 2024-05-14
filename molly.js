@@ -160,12 +160,19 @@ function update()
 
 const canvas = document.getElementById("canvas")
 const ctx = canvas.getContext("2d")
-const canvasCellSize = 10
+var canvasCellSize = 10
 const canvasbios = {x : 0, y : 0}
 
 //draw the map
 function draw()
 {
+    var size = document.getElementById("size").value
+    if(size <= 0)
+    {
+       alert("check the format of size!")
+       return 
+    }
+    canvasCellSize = size
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     for (let [key, block] of blockMap)
     {
@@ -193,7 +200,11 @@ function next()
 var loop
 function autoLoop()
 {
-    loop = setInterval(next, 100)
+    var deltime = document.getElementById("speed").value
+    if(deltime >= 1)
+        loop = setInterval(next, deltime)
+    else
+        alert("check the format of flushrate!")
 }
 
 function stopLoop()
